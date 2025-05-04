@@ -18,8 +18,8 @@ const createTask = async (req, res) => {
 
      
            
-       let   finalDescription = await generateTaskDescription(`Generate a description for the task titled "${title}"`);
-        
+       let   finalDescription = await generateTaskDescription(`In one short sentence, describe the task: "${title}"`);
+        console.log('Generated Description:', finalDescription);
        finalDescription = finalDescription.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim(); 
        
        
@@ -50,12 +50,13 @@ const fetchTasks=async (req, res) => {
   const {status,search,page=1,limit=5} = req.query;
    const userId = req.user.id; 
    let query={};
-   query.assignedTo=userId;
+   query.assignedTo = new mongoose.Types.ObjectId(userId);
     if(status) query.status=status;
     if(search)
     {
         const regEx=new RegExp(search,'i');
         query.$or=[{title:regEx},{description:regEx}];
+    }
         const skip=(page-1)*limit;
         const tasks=await Task.find(query).skip(skip).limit(limit).sort({dueDate:1});
         const totalTasks = await Task.countDocuments(query);
@@ -69,7 +70,7 @@ const fetchTasks=async (req, res) => {
 
         
     }
-    }catch (error) {
+    catch (error) {
         console.error('Error fetching tasks:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
