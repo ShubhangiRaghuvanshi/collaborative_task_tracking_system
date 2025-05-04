@@ -2,93 +2,72 @@
 
 ## Description
 
-The **Collaborative Task Tracking System** is a backend service built with Node.js and MongoDB, designed to manage tasks with features such as task creation, status updates, and user-specific task management. The system integrates with an external AI service to dynamically generate short descriptions for tasks based on the task titles. This project is aimed at streamlining task management, assigning tasks to users, and tracking their progress effectively.
+The **Collaborative Task Tracking System** is a backend service built with **Node.js** and **MongoDB**, designed for task and project collaboration within teams. It supports secure user authentication, AI-generated task descriptions, and features like comments, attachments, and task assignments.
+
+This system enables users to manage tasks, collaborate in teams, and stay organized through intuitive REST APIs. It's ideal for both individual productivity and team-based project management.
+
+---
 
 ## Features
 
-- **User Authentication**: Register, login, and manage user profiles.
-- **Task Management**:
-  - Create tasks with auto-generated descriptions.
-  - Filter and search tasks by status, title, and due date.
-  - Update task statuses (e.g., `pending`, `in-progress`, `completed`).
-  - Assign tasks to specific users.
-- **Task Description Generation**: Dynamic description generation using an AI service.
-- **Task Commenting & Attachments**: Add comments and attach files to tasks.
+- **User Authentication**
+  - Register and login securely
+  - JWT-based token authentication
+  - View and update user profile
+
+- **Task Management**
+  - Create, update, and delete tasks
+  - Auto-generate short descriptions via AI
+  - Filter tasks by `status`, `due date`, and `title`
+  - Assign tasks to users
+  - Comment on tasks
+  - Upload attachments (e.g., screenshots, files)
+
+- **Collaboration**
+  - Assign tasks to team members
+  - Comment-based communication
+  - Optional real-time updates (future scope)
+
+---
 
 ## Tech Stack
 
 - **Backend**: Node.js, Express.js
-- **Database**: MongoDB, Mongoose
-- **Authentication**: JWT-based
-- **AI Integration**: External AI API for generating task descriptions
+- **Database**: MongoDB with Mongoose
+- **Authentication**: JWT
+- **AI Integration**: External AI API (for description generation)
 
-## Installation
+---
 
-1. **Clone the repository**:
+## Installation & Setup
+
+1. **Clone the repository**
    ```bash
    git clone https://github.com/ShubhangiRaghuvanshi/collaborative_task_tracking_system.git
    cd collaborative_task_tracking_system
-
-   Install dependencies:
-
+Install dependencies
 npm install
 
+Environment variables
 
-Set up environment variables:
-Create a .env file in the root directory and add the following:
-MONGO_URI=<Your MongoDB URI>
-JWT_SECRET=<Your JWT Secret>
-AI_API_KEY=<Your AI API Key>
+Create a .env file in the root with:
+MONGO_URI=<your-mongo-uri>
+JWT_SECRET=<your-jwt-secret>
+AI_API_KEY=<your-ai-key>
+Start the server
 npm start
-API Endpoints
-Auth
-POST /api/user/register
-Register a new user
-POST /api/user/login
-Login an existing user
-GET /api/user/profile
-Get the logged-in user's profile
-Headers: Authorization: Bearer <token>
 
-Tasks
-POST /api/task
-Create a new task
-GET /api/task
-Fetch tasks (with filtering and pagination)
-Query Parameters:
-
-status = pending | in-progress | completed
-
-search = text
-
-page = number
-
-limit = number
-
-GET /api/task/:id
-Get task details
-
-PUT /api/task/:id
-Update task (e.g. change status)
-POST /api/task/:id/comment
-Add comment to a task
-POST /api/task/:id/attachment
-Upload a file as an attachment (form-data)
-Contributing
-Fork this repo
-
-Create a new branch: git checkout -b feature-name
-
-Make your changes
-
-Commit: git commit -am 'Add feature'
-
-Push: git push origin feature-name
-
-Submit a pull request
-
-License
-This project is licensed under the MIT License.
-
-
-
+| Method | Endpoint             | Description              |
+| ------ | -------------------- | ------------------------ |
+| POST   | `/api/user/register` | Register new user        |
+| POST   | `/api/user/login`    | Login existing user      |
+| GET    | `/api/user/profile`  | View user profile (Auth) |
+| Method | Endpoint                   | Description                        |
+| ------ | -------------------------- | ---------------------------------- |
+| POST   | `/api/task`                | Create a new task                  |
+| GET    | `/api/task`                | Get all tasks (supports filtering) |
+| GET    | `/api/task/:id`            | Get task details by ID             |
+| PUT    | `/api/task/:id`            | Update task status/details         |
+| POST   | `/api/task/:id`    | Add comment to task                |
+    
+| POST   | `/api/task/:id/assign`     | Assign task to user                |
