@@ -131,4 +131,4 @@ git commit -am "Add feature"
 Push and open a pull request
 
 License
-This project is licensed under the MIT License
+This project is licensed under the MIT License.
