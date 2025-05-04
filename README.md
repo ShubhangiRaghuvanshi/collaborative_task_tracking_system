@@ -63,7 +63,7 @@ POST	/api/user/register	Register a new user
 POST	/api/user/login	Login and receive a token
 GET	/api/user/profile	View user profile
 
-📋 Task Management
+ Task Management
 Method	Endpoint	Description
 POST	/api/task	Create a new task
 GET	/api/task	Get all tasks (with filters)
